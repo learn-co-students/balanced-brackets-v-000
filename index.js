@@ -7,7 +7,7 @@ function isBalanced(str) {
     '}': '}',
     ']': ']'
   };
-  let openCharsStack = new Array();
+  let openCharStack = new Array();
 
   if (str.length <= 1) {
     return false;
@@ -17,14 +17,14 @@ function isBalanced(str) {
     if (str[i] in charObj) {
       // if key === value, it's a closing bracket
       if (charObj[str[i]] !== str[i]) {
-        openCharsStack.push(str[i]);
-        // if the closing bracket (str[i]) matches the last stack of
-        // open bracket (opensCharsStack[openCharsStack.length - 1])
+        openCharStack.push(str[i]);
       } else if (
-        charObj[str[i]] === charObj[openCharsStack[openCharsStack.length - 1]]
+        charObj[str[i]] === charObj[openCharStack[openCharStack.length - 1]]
       ) {
-        // remove last element of openChars stack which matches the closing char
-        openCharsStack.splice(-1);
+        // if the closing bracket (charObj[str[i]]) matches the last stack of
+        // open bracket (opensCharsStack[openCharStack.length - 1])
+        // remove last element of openChar stack which matches the closing char
+        openCharStack.splice(-1, 1);
       } else {
         return false;
       }
