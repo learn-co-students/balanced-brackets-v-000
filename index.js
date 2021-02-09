@@ -1,19 +1,36 @@
+const match = {
+  '(': ')',
+  '[': ']',
+  '{': '}'
+};
+  
 function isBalanced(str) {
-  const match = {
-    '(': ')',
-    '{': '}',
-    '[': ']'
-  }
-  if (str.length === 0) { return true }
-  if (str.length%2 === 1) { return false }
-  let s = str.split();
-  if (match[s[0]] === s[1]) {
-    return isBalanced(s.splice(0,2));
-  }
-  if (match[s[0]] === s[s.length-1]) {
-    s.pop();
-    s.shift();
-    return isBalanced(s);
-  }
-  return false;
+  const s = str.split('');
+  let i = 0;
+  let allBalanced = false;
+  
+  while(i < s.length - 1 && !allBalanced) {
+    if (nextMatch(i, s)) {
+      i = 0;
+      s.splice(i, 2);
+      if (s.length === 0) allBalanced = true;
+    } else if (outerMatch(0, s)) {
+      i = 0;
+      s.shift();
+      s.pop();
+      if (s.length === 0) allBalanced = true
+    } else {
+      i++;
+    }
+  } 
+  
+  return allBalanced;
+}
+
+function nextMatch(i, str) {
+  return match[str[i]] === str[i + 1];
+}
+
+function outerMatch(i, str) {
+  return match[str[i]] === str[str.length - 1];
 }
