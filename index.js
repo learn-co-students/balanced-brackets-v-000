@@ -14,7 +14,7 @@ function isBalanced(str) {
       i = 0;
       s.splice(i, 2);
       if (s.length === 0) allBalanced = true;
-    } else if (outerMatch(0, s)) {
+    } else if (outerMatch(s)) {
       i = 0;
       s.shift();
       s.pop();
@@ -31,6 +31,6 @@ function nextMatch(i, str) {
   return match[str[i]] === str[i + 1];
 }
 
-function outerMatch(i, str) {
-  return match[str[i]] === str[str.length - 1];
+function outerMatch(str) {
+  return match[str[0]] === str[str.length - 1];
 }
